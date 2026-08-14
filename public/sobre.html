@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sobre · Roadmap de Estudos</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <img id="logo" alt="logo" src="/logo.png" onerror="this.style.display='none'">
+        <div>Roadmap de Estudos <span class="tag">trilhas, exercicios e progresso</span></div>
+      </div>
+      <div id="userbox"></div>
+    </header>
+
+    <section class="card">
+      <button class="btn ghost sm" onclick="location.href='/'">← voltar</button>
+      <h1 style="margin-top:14px">Como funciona o banco de dados e a segurança</h1>
+      <p style="color:var(--muted)">Texto direto, sem juridiquês. O objetivo é que você confie no que acontece com os seus dados.</p>
+
+      <h3>O que é o banco</h3>
+      <p>Cada instalação do servidor usa um <strong>SQLite</strong> — um arquivo único (<code>estudos.db</code>) no próprio servidor. Não há servidor de banco separado, não há nuvem obrigatória. É o mesmo mecanismo usado em milhões de aplicativos (navegadores, celulares).</p>
+
+      <h3>O que é salvo</h3>
+      <ul>
+        <li><strong>Sua conta:</strong> nome de usuário, (opcional) e-mail vindo do GitHub, e o <em>hash</em> da sua senha.</li>
+        <li><strong>Seu progresso:</strong> quais exercícios você marcou como concluídos e quais trilhas favoritou. Só isso.</li>
+        <li><strong>Nada de conteúdo dos exercícios</strong> é copiado para o banco — o conteúdo fica nos arquivos de trilhas no servidor e é enviado para você ler.</li>
+      </ul>
+
+      <h3>Como sua senha é protegida</h3>
+      <p>A senha <strong>nunca</strong> é armazenada em texto puro. Ela passa por <strong>bcrypt</strong> (custo 12), uma função de hash só de ida: mesmo quem tiver acesso ao arquivo do banco não consegue recuperar a senha original — só verificar se a senha digitada bate com o hash. Login e cadastro também têm <strong>limite de tentativas</strong> (rate limit) para dificultar força bruta.</p>
+
+      <h3>Como a sessão funciona</h3>
+      <p>Após autenticar, o servidor cria uma sessão assinada. O cookie da sessão é <code>httpOnly</code> (o JavaScript da página não consegue ler) e <code>sameSite=lax</code>. Em produção o cookie também é <code>secure</code> (só trafega por HTTPS). Nenhuma senha trafega depois do login.</p>
+
+      <h3>Cabeçalhos e proteções</h3>
+      <p>O servidor aplica <strong>Content-Security-Policy</strong>, <strong>X-Frame-Options</strong> e outras proteções via Helmet, impedindo injeção de scripts de terceiros e clickjacking.</p>
+
+      <h3>O login com GitHub</h3>
+      <p>É um <strong>OAuth</strong> padrão: você autoriza o GitHub e recebe de volta apenas identificador público e e-mail (se permitido). O segredo do aplicativo fica só no servidor (variáveis de ambiente). Se o operador não configurar as credenciais, o botão simplesmente informa que não está disponível — nada quebra.</p>
+
+      <h3>Limites honestos</h3>
+      <ul>
+        <li>Se o servidor for hospedado por terceiros, o operador técnico tem acesso ao banco. Por isso recomendamos hospedar você mesmo (veja o README).</li>
+        <li>Em redes públicas, use sempre HTTPS (proxy reverso com TLS).</li>
+        <li>A execução de código (quando habilitada para laboratório local) é opcional e desligada por padrão em produção.</li>
+      </ul>
+
+      <h3>Seus direitos</h3>
+      <p>Você pode pedir a exclusão da sua conta e de todo o progresso a qualquer momento (basta apagar a linha correspondente no banco, ou solicitar ao administrador). O conteúdo educacional permanece livre para estudar.</p>
+    </section>
+
+    <footer>
+      Plataforma criada e mantida por <a href="https://github.com/Diogo-Damasceno" target="_blank" rel="noopener">Diogo Damasceno</a>.
+      Conteudo educacional. Em atividades de seguranca, pratique apenas em ambientes seus e autorizados.
+    </footer>
+  </div>
+</body>
+</html>

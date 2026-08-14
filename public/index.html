@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Roadmap de Estudos</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <img id="logo" alt="logo" src="/logo.png" onerror="this.style.display='none'">
+        <div>Roadmap de Estudos <span class="tag">trilhas, exercicios e progresso</span></div>
+      </div>
+      <div id="userbox"></div>
+      <a href="/sobre" style="margin-left:8px">Sobre / Segurança</a>
+    </header>
+
+    <!-- TELA DE LOGIN -->
+    <section id="login" class="auth card hidden">
+      <h1>Acesse sua plataforma</h1>
+      <p class="sub">Seu progresso fica salvo em sua conta (no servidor, com senha protegida).</p>
+      <form id="loginForm">
+        <div class="field"><label>Usuário</label><input id="li_user" autocomplete="username"></div>
+        <div class="field"><label>Senha</label><input id="li_pass" type="password" autocomplete="current-password"></div>
+        <button class="btn primary" type="submit" style="width:100%">Entrar</button>
+      </form>
+      <div class="divider">ou</div>
+      <button class="btn" id="ghBtn" style="width:100%">Entrar com GitHub</button>
+      <div class="divider">novo por aqui?</div>
+      <form id="regForm">
+        <div class="field"><label>Criar usuário</label><input id="rg_user" autocomplete="username"></div>
+        <div class="field"><label>Criar senha (mín. 8)</label><input id="rg_pass" type="password" autocomplete="new-password"></div>
+        <button class="btn primary" type="submit" style="width:100%">Criar conta</button>
+      </form>
+      <div class="msg" id="authMsg"></div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="hidden">
+      <div class="card">
+        <strong>Filtro</strong>
+        <div class="row" style="margin-top:10px">
+          <input id="search" placeholder="buscar trilha..." style="flex:1;padding:10px;border-radius:10px;background:var(--panel2);border:1px solid var(--border);color:var(--text)">
+          <button class="btn sm" id="onlyStarred">★ apenas favoritas</button>
+        </div>
+      </div>
+      <div id="areas" class="grid"></div>
+    </section>
+
+    <!-- DETALHE DA TRILHA -->
+    <section id="detail" class="hidden">
+      <button class="btn ghost sm back" id="backBtn">← voltar</button>
+      <div id="detailContent"></div>
+    </section>
+
+    <footer>
+      Plataforma criada e mantida por <a href="https://github.com/Diogo-Damasceno" target="_blank" rel="noopener">Diogo Damasceno</a>.
+      Conteudo educacional. Em atividades de seguranca, pratique apenas em ambientes seus e autorizados.
+    </footer>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+node_modules/
+npm-debug.log*
+roadmap.db
+roadmap.db-*
+estudos.db
+estudos.db-*
+.env
+_legacy/
+*.log
+.DS_Store
+*.swp
+_validate.js
+roadmap-app.js
+roadmap.html

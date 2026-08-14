@@ -1,0 +1,1216 @@
+{
+ "precalculo": [
+  {
+   "t": "Guia da Computação em Nuvem: Conceito, Prática & Capacitação",
+   "u": "https://archive.org/details/guia-da-computacao-em-nuvem"
+  },
+  {
+   "t": "O Editor de Texto Vim",
+   "u": "https://code.google.com/p/vimbook"
+  },
+  {
+   "t": "Vim para Noobs",
+   "u": "https://woliveiras.com.br/vimparanoobs/"
+  },
+  {
+   "t": "Vimbook",
+   "u": "https://cassiobotaro.dev/vimbook/"
+  },
+  {
+   "t": "Visual Studio Code: Produtividade infinita",
+   "u": "https://github.com/bylearn/VS-Code-Produtividade-Infinita"
+  },
+  {
+   "t": "Algoritmos e Estruturas de Dados 1",
+   "u": "https://www.inf.ufpr.br/marcos/livro_alg1/livro_alg1.pdf"
+  },
+  {
+   "t": "Algoritmos e Programação",
+   "u": "https://www.ifmg.edu.br/ceadop3/apostilas/algoritmos-e-programacao"
+  },
+  {
+   "t": "Introdução a Algoritmos e Programação",
+   "u": "http://www.ferrari.pro.br/home/documents/FFerrari-CCechinel-Introducao-a-algoritmos.pdf"
+  },
+  {
+   "t": "Lógica de Programação para iniciantes",
+   "u": "https://dicasdeprogramacao.com.br/download/ebook-logica-de-programacao-para-iniciantes.pdf"
+  },
+  {
+   "t": "Paradigmas de programação",
+   "u": "https://github.com/edsomjr/Paradigmas"
+  },
+  {
+   "t": "Guia Foca Linux",
+   "u": "https://www.guiafoca.org/#download"
+  },
+  {
+   "t": "Linux Essentials",
+   "u": "https://learning.lpi.org/pt/learning-materials/010-160/"
+  },
+  {
+   "t": "Sistemas Operacionais: Conceitos e Mecanismos",
+   "u": "http://wiki.inf.ufpr.br/maziero/lib/exe/fetch.php?media=socm:socm-livro.pdf"
+  }
+ ],
+ "ferramentas-proprias": [
+  {
+   "t": "Google Android: Uma abordagem prática e didática",
+   "u": "https://leanpub.com/google-android"
+  },
+  {
+   "t": "Arduino Guia Iniciante",
+   "u": "https://cdn.multilogica-shop.com/Guia_Arduino/Guia_Arduino_Iniciante_Multilogica_Shop_Versao_2.pdf"
+  },
+  {
+   "t": "Programação de computadores para iniciantes com Small Basic",
+   "u": "https://github.com/J-AugustoManzano/livro_Small-Basic-1.2"
+  },
+  {
+   "t": "Apostila Linguagem C++",
+   "u": "http://www.ime.usp.br/~slago/slago-C++.pdf"
+  },
+  {
+   "t": "Programação Orientada a Objetos em C++",
+   "u": "https://web.archive.org/web/20190124233626/http://webserver2.tecgraf.puc-rio.br/~manuel/Download/Programacao%20Orientada%20a%20Objetos%20em%20C++.pdf"
+  },
+  {
+   "t": "Tópicos Especiais em Programação",
+   "u": "https://github.com/edsomjr/TEP"
+  },
+  {
+   "t": "Dart Documentação",
+   "u": "https://dart.dev/guides"
+  },
+  {
+   "t": "Flutter para Iniciantes",
+   "u": "https://www.flutterparainiciantes.com.br"
+  },
+  {
+   "t": "Elixir DOJO",
+   "u": "http://victorolinasc.github.io/elixir_dojo/dojo.html"
+  },
+  {
+   "t": "Learn4Elixir",
+   "u": "https://github.com/Universidade-Livre/Learn4Elixir"
+  },
+  {
+   "t": "Introdução ao Fortran90",
+   "u": "https://www.cenapad.unicamp.br/treinamentos/apostilas/apostila_fortran90.pdf"
+  },
+  {
+   "t": "Aprenda Go com Testes",
+   "u": "https://larien.gitbook.io/aprenda-go-com-testes"
+  },
+  {
+   "t": "Construindo Aplicações Web em Golang",
+   "u": "https://astaxie.gitbooks.io/build-web-application-with-golang/content/pt-br/"
+  },
+  {
+   "t": "Go - hands on",
+   "u": "https://github.com/go-br/estudos"
+  },
+  {
+   "t": "Go Lang - A linguagem do Google",
+   "u": "https://www.ime.usp.br/~gold/cursos/2015/MAC5742/reports/GoLang.pdf"
+  },
+  {
+   "t": "Go por Exemplo",
+   "u": "http://goporexemplo.golangbr.org"
+  },
+  {
+   "t": "Aprender o Haskell será um grande bem para você",
+   "u": "https://github.com/taylorrf/learnhaskell"
+  },
+  {
+   "t": "Apostila de HTML",
+   "u": "https://www.telecom.uff.br/pet/petws/downloads/apostilas/HTML.pdf"
+  },
+  {
+   "t": "Curso SASS",
+   "u": "https://github.com/amandavilela/curso-sass"
+  },
+  {
+   "t": "Desenvolvimento Web com HTML, CSS e JavaScript",
+   "u": "https://www.caelum.com.br/apostila-html-css-javascript/"
+  },
+  {
+   "t": "Dive Into HTML5",
+   "u": "http://diveintohtml5.com.br"
+  },
+  {
+   "t": "Estruturando o HTML com CSS",
+   "u": "http://pt-br.learnlayout.com"
+  },
+  {
+   "t": "A Internet das Coisas",
+   "u": "https://bibliotecadigital.fgv.br/dspace/bitstream/handle/10438/23898/A%20internet%20das%20coisas.pdf"
+  },
+  {
+   "t": "Internet Das Coisas Uma Breve Introdução E Perspectivas Na Área Da Saúde",
+   "u": "https://educapes.capes.gov.br/bitstream/capes/747555/1/Internet%20das%20Coisas.pdf"
+  },
+  {
+   "t": "Imergindo na JVM",
+   "u": "https://leanpub.com/imergindo-jvm"
+  },
+  {
+   "t": "Introdução a Ciência da Computação com Java",
+   "u": "http://ccsl.ime.usp.br/files/publications/files/2008/intro-java-cc.pdf"
+  },
+  {
+   "t": "Java Básico e Oriêntação a Objeto",
+   "u": "https://canal.cecierj.edu.br/012016/d7d8367338445d5a49b4d5a49f6ad2b9.pdf"
+  },
+  {
+   "t": "Java e Orientação a Objetos",
+   "u": "http://www.caelum.com.br/apostila-java-orientacao-objetos/"
+  },
+  {
+   "t": "Java para Desenvolvimento Web",
+   "u": "http://www.caelum.com.br/apostila-java-web/"
+  },
+  {
+   "t": "Programação em JAVA",
+   "u": "https://www.faeterj-rio.edu.br/downloads/bbv/0031.pdf"
+  },
+  {
+   "t": "Programação Orientada a Objetos: Uma Abordagem com Java",
+   "u": "https://www.dca.fee.unicamp.br/cursos/PooJava/Aulas/poojava.pdf"
+  },
+  {
+   "t": "Programação para iniciantes",
+   "u": "https://s3.amazonaws.com/algaworks-assets/ebooks/algaworks-livro-programacao-para-iniciantes-v1.1.pdf"
+  },
+  {
+   "t": "Eloquente JavaScript",
+   "u": "https://github.com/braziljs/eloquente-javascript"
+  },
+  {
+   "t": "EXPERT JS Stack",
+   "u": "http://stack.desenvolvedor.expert"
+  },
+  {
+   "t": "Guia JavaScript",
+   "u": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide"
+  },
+  {
+   "t": "Guia Rápido de Desenvolvimento para Firefox OS",
+   "u": "https://leanpub.com/guiarapidofirefoxos/read"
+  },
+  {
+   "t": "JS: A forma certa",
+   "u": "http://jstherightway.org/pt-br/"
+  },
+  {
+   "t": "You Don't Know JS: Async & Performance",
+   "u": "https://github.com/cezaraugusto/You-Dont-Know-JS/blob/portuguese-translation/async%20&%20performance/README.md"
+  },
+  {
+   "t": "You Don't Know JS: ES6 & Além",
+   "u": "https://github.com/cezaraugusto/You-Dont-Know-JS/blob/portuguese-translation/es6%20&%20beyond/README.md"
+  },
+  {
+   "t": "You Don't Know JS: Escopos & Closures",
+   "u": "https://github.com/cezaraugusto/You-Dont-Know-JS/blob/portuguese-translation/scope%20&%20closures/README.md"
+  },
+  {
+   "t": "You Don't Know JS: Iniciando",
+   "u": "https://github.com/cezaraugusto/You-Dont-Know-JS/blob/portuguese-translation/up%20&%20going/README.md"
+  },
+  {
+   "t": "You Don't Know JS: this & Prototipagem de Objetos",
+   "u": "https://github.com/cezaraugusto/You-Dont-Know-JS/blob/portuguese-translation/this%20&%20object%20prototypes/README.md"
+  },
+  {
+   "t": "You Don't Know JS: Tipos & Gramática",
+   "u": "https://github.com/cezaraugusto/You-Dont-Know-JS/blob/portuguese-translation/types%20&%20grammar/README.md"
+  },
+  {
+   "t": "Criando uma aplicação simples com AngularJS",
+   "u": "http://tableless.com.br/criando-uma-aplicacao-simples-com-angularjs/"
+  },
+  {
+   "t": "Criando uma aplicação Single Page com AngularJS",
+   "u": "http://tableless.com.br/criando-uma-aplicacao-single-page-com-angularjs/"
+  },
+  {
+   "t": "Entendendo as diretivas e fazendo abas com AngularJS",
+   "u": "http://tableless.com.br/diretivas-angularjs-abas/"
+  },
+  {
+   "t": "Série Backbone.js (blog.fernandomantoan.com)",
+   "u": "http://blog.fernandomantoan.com/serie-backbone-js-parte-1-introducao/"
+  },
+  {
+   "t": "Conceitos basicos do Ember.js",
+   "u": "http://fabriciotav.org/blog/2013/02/20/conceitos-basicos-do-emberjs.html"
+  },
+  {
+   "t": "Handlebars Helpers com Ember.js",
+   "u": "http://fabriciotav.org/blog/2013/02/20/handlebars-helpers-com-emberjs.html"
+  },
+  {
+   "t": "Primeiros passos com Express em Node.js",
+   "u": "http://nodebr.com/primeiros-passos-com-express-em-node-js/"
+  },
+  {
+   "t": "Grunt - Voce deveria estar usando",
+   "u": "http://tableless.com.br/grunt-voce-deveria-estar-usando/"
+  },
+  {
+   "t": "Grunt \\| Automatizando tarefas",
+   "u": "http://woliveiras.com.br/posts/grunt-automatizando-tarefas/"
+  },
+  {
+   "t": "Gulp - O novo automatizador",
+   "u": "http://tableless.com.br/gulp-o-novo-automatizador/"
+  },
+  {
+   "t": "Artigos sobre jQuery",
+   "u": "https://tableless.com.br/categories/jquery/"
+  },
+  {
+   "t": "Documentação",
+   "u": "https://github.com/alexhiroshi/knockoutjs-brasil"
+  },
+  {
+   "t": "Tudo sobre Meteor",
+   "u": "https://udgwebdev.github.io/meteor/"
+  },
+  {
+   "t": "O manual do Next.js para iniciantes",
+   "u": "https://www.freecodecamp.org/portuguese/news/o-manual-do-next-js-para-iniciantes/"
+  },
+  {
+   "t": "Aplicações web real-time com Node.js",
+   "u": "https://github.com/caio-ribeiro-pereira/livro-nodejs"
+  },
+  {
+   "t": "Construindo APIs testáveis com Node.js",
+   "u": "https://leanpub.com/construindo-apis-testaveis-com-nodejs/read"
+  },
+  {
+   "t": "Node.js para Leigos",
+   "u": "https://udgwebdev.github.io/nodejs/"
+  },
+  {
+   "t": "Raspagem de dados com Node.js",
+   "u": "http://tableless.com.br/raspagem-de-dados-com-node-js/"
+  },
+  {
+   "t": "React: JavaScript reativo",
+   "u": "http://tableless.com.br/react-javascript-reativo/"
+  },
+  {
+   "t": "Adicionar Bootstrap e Font-awesome no projeto criado com o Vue Cli",
+   "u": "https://web.archive.org/web/20180613054310/http://www.vedovelli.com.br/frontend/adicionar-bootstrap-e-font-awesome-no-projeto-criado-com-o-vue-cli/"
+  },
+  {
+   "t": "Documentação pt-BR",
+   "u": "https://br.vuejs.org/v2/guide/"
+  },
+  {
+   "t": "Vue.js na prática",
+   "u": "https://leanpub.com/livro-vue"
+  },
+  {
+   "t": "VueJS: Filtro para criar URL’s amigáveis",
+   "u": "http://web.archive.org/web/20160331162636/http://carlosgartner.com.br/vuejs-filtro-para-criar-urls-amigaveis/"
+  },
+  {
+   "t": "Introdução a linguagem LISP",
+   "u": "http://www.dca.fee.unicamp.br/courses/EA072/lisp9596/Lisp9596.html"
+  },
+  {
+   "t": "Linguagem LISP - Primeiros passos com Common LISP (CL)",
+   "u": "https://novo.manzano.pro.br/wp/download/linguagem-lisp-primeiros-passos-com-common-lisp-cl/"
+  },
+  {
+   "t": "Academia da Tartaruga",
+   "u": "https://github.com/J-AugustoManzano/livro_AcadTat"
+  },
+  {
+   "t": "Linguagem Logo: Introdução com UCBLogo 6.2.2",
+   "u": "https://github.com/J-AugustoManzano/livro_Logo-Intro-UCBLogo"
+  },
+  {
+   "t": "Manual de Referência de Lua 5.2",
+   "u": "http://www.lua.org/manual/5.2/pt/"
+  },
+  {
+   "t": "Programando com Pascal",
+   "u": "https://ic.ufal.br/professor/jaime/livros/Programando%20com%20Pascal.pdf"
+  },
+  {
+   "t": "Api REST Com Silex no GAE",
+   "u": "http://bit.ly/ebook-silex"
+  },
+  {
+   "t": "CakePHP",
+   "u": "http://book.cakephp.org/2.0/pt/index.html"
+  },
+  {
+   "t": "Curso Linguagem PHP 2000",
+   "u": "http://www.etelg.com.br/paginaete/downloads/informatica/php.pdf"
+  },
+  {
+   "t": "PHP Do jeito certo",
+   "u": "http://br.phptherightway.com"
+  },
+  {
+   "t": "PHPUnit",
+   "u": "https://phpunit.de/manual/current/pt_br/index.html"
+  },
+  {
+   "t": "Guia Definitivo para Yii 2.0",
+   "u": "https://www.yiiframework.com/doc/download/yii-guide-2.0-pt-br.pdf"
+  },
+  {
+   "t": "Expressões Regulares - Guia de Consulta Rápida",
+   "u": "http://aurelio.net/regex/guia/"
+  },
+  {
+   "t": "Aprenda a Programar",
+   "u": "http://www.jmonteiro.com/aprendaaprogramar/"
+  },
+  {
+   "t": "Conhecendo Ruby - Eustaquio Rangel",
+   "u": "https://leanpub.com/conhecendo-ruby/read"
+  },
+  {
+   "t": "A Linguagem de Programação Rust",
+   "u": "https://rust-br.github.io/rust-book-pt-br/title-page.html"
+  },
+  {
+   "t": "Iniciando no TypeScript - Guia prático para os primeiros passos da linguagem",
+   "u": "https://www.maiconsilva.com/starting-typescript/"
+  },
+  {
+   "t": "TypeScript Documentação",
+   "u": "https://www.typescriptlang.org/pt/docs/"
+  },
+  {
+   "t": "TypeScript: O guia definitivo",
+   "u": "https://oieduardorabelo.medium.com/typescript-o-guia-definitivo-1a63b04259cc"
+  },
+  {
+   "t": "Angular 2 - Criando sua primeira aplicação no Visual Studio Code",
+   "u": "http://www.macoratti.net/17/02/net_ang2vsc1.htm"
+  }
+ ],
+ "rev": [
+  {
+   "t": "Assembly x86",
+   "u": "https://mentebinaria.gitbook.io/assembly-x86/"
+  },
+  {
+   "t": "Linguagem Assembly: Introdução ao padrão Intel 8086",
+   "u": "https://github.com/J-AugustoManzano/livro_Assembly-Intro-8086"
+  },
+  {
+   "t": "Algoritmos em Grafos",
+   "u": "https://www.ime.usp.br/~yoshi/2005i/mac328/"
+  },
+  {
+   "t": "Algoritmos para Grafos (via Sedgewick)",
+   "u": "https://www.ime.usp.br/~pf/algoritmos_para_grafos/"
+  },
+  {
+   "t": "Apostila Linguagem C",
+   "u": "http://www.ime.usp.br/~slago/slago-C.pdf"
+  },
+  {
+   "t": "C Completo e Total - Terceira Edição (1996)",
+   "u": "https://www.inf.ufpr.br/lesoliveira/download/c-completo-total.pdf"
+  },
+  {
+   "t": "Guia Beej's Para Programação em Rede - Usando Internet Sockets",
+   "u": "http://beej.us/guide/bgnet/translations/bgnet_ptbr.html"
+  },
+  {
+   "t": "Introdução a Programação",
+   "u": "https://github.com/ufpb-computacao/introducao-a-programacao-livro/releases"
+  },
+  {
+   "t": "Linguagem C - Notas de Aula",
+   "u": "https://www.inf.ufpr.br/cursos/ci067/Docs/NotasAula/"
+  },
+  {
+   "t": "O Fantástico Mundo da Linguagem C",
+   "u": "https://fiorix.files.wordpress.com/2014/04/o-fantc3a1stico-mundo-da-linguagem-c.pdf"
+  },
+  {
+   "t": "Projeto de Algoritmos (em C)",
+   "u": "http://www.ime.usp.br/~pf/algoritmos/"
+  }
+ ],
+ "dados": [
+  {
+   "t": "Introdução a Banco de Dados",
+   "u": "https://www.ime.usp.br/~jef/apostila.pdf"
+  },
+  {
+   "t": "Introdução a Banco de Dados",
+   "u": "https://educapes.capes.gov.br/bitstream/capes/564494/2/FASCICULO_Introducao_Banco_Dados_30_08.pdf"
+  }
+ ],
+ "devops": [
+  {
+   "t": "Descomplicando o Docker",
+   "u": "https://livro.descomplicandodocker.com.br"
+  },
+  {
+   "t": "Descomplicando Kubernetes",
+   "u": "https://livro.descomplicandokubernetes.com.br"
+  },
+  {
+   "t": "Introdução ao Kubernetes no Azure",
+   "u": "https://docs.microsoft.com/pt-br/learn/paths/intro-to-kubernetes-on-azure/"
+  }
+ ],
+ "eng": [
+  {
+   "t": "Engenharia de Software - Uma Abordagem Profissional",
+   "u": "https://web.icmc.usp.br/SCATUSU/Boletim_aquisicao/Boletim_Julho_2019/capas_julho_2019/Pressman_Engenharia0001.pdf"
+  },
+  {
+   "t": "Engenharia de Software Moderna",
+   "u": "https://engsoftmoderna.info"
+  },
+  {
+   "t": "Kanban e Scrum - obtendo o melhor de ambos",
+   "u": "http://www.infoq.com/br/minibooks/kanban-scrum-minibook"
+  },
+  {
+   "t": "Kanban em 10 Passos",
+   "u": "http://www.infoq.com/br/minibooks/priming-kanban-jesper-boeg"
+  },
+  {
+   "t": "Scrum e XP direto das Trincheiras",
+   "u": "http://www.infoq.com/br/minibooks/scrum-xp-from-the-trenches"
+  },
+  {
+   "t": "ASP.NET Core architecture",
+   "u": "https://docs.microsoft.com/pt-br/dotnet/architecture/modern-web-apps-azure/"
+  },
+  {
+   "t": "Melhores Práticas de Arquitetura de Software na era da Nuvem",
+   "u": "https://leanpub.com/manual-arquitetura-software"
+  },
+  {
+   "t": "Microservices architecture",
+   "u": "https://docs.microsoft.com/pt-br/dotnet/architecture/microservices/"
+  },
+  {
+   "t": "Modernizing existing .NET apps",
+   "u": "https://docs.microsoft.com/pt-br/dotnet/architecture/modernize-with-azure-containers/"
+  },
+  {
+   "t": "CI - Integração Contínua Sem Desculpa",
+   "u": "https://ci.mrprompt.com.br"
+  },
+  {
+   "t": "Primeiros passos com Padrões de Projeto",
+   "u": "https://leanpub.com/primeiros-passos-com-padroes-de-projeto/"
+  },
+  {
+   "t": "Descomplicando Git",
+   "u": "https://github.com/badtuxx/DescomplicandoGit"
+  },
+  {
+   "t": "Git - guia prático",
+   "u": "https://rogerdudler.github.io/git-guide/index.pt_BR.html"
+  },
+  {
+   "t": "Git Magic",
+   "u": "http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/pt_br/"
+  },
+  {
+   "t": "Minicurso - Controle de Versão usando o Git",
+   "u": "https://github.com/ltiaunesp/Git-Minicurso"
+  },
+  {
+   "t": "Pro Git",
+   "u": "http://git-scm.com/book/pt-br/"
+  }
+ ],
+ "mat-ti": [
+  {
+   "t": "Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/analise_de_algoritmos/"
+  },
+  {
+   "t": "Computação: Matemática Discreta",
+   "u": "https://educapes.capes.gov.br/bitstream/capes/432209/2/Livro_Matematica%20Discreta.pdf"
+  },
+  {
+   "t": "Exercícios de Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/grafos-exercicios/"
+  },
+  {
+   "t": "Matemática Fundacional para Computação - Em progresso",
+   "u": "https://www.tsouanas.org/fmcbook/"
+  },
+  {
+   "t": "Minicurso de Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/livrinho-AA/"
+  },
+  {
+   "t": "Otimização Combinatória",
+   "u": "https://www.ime.usp.br/~pf/otimizacao-combinatoria/"
+  },
+  {
+   "t": "Uma Introdução Sucinta à Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/teoriadosgrafos/"
+  }
+ ],
+ "ai": [
+  {
+   "t": "Aplicações de Machine Learning",
+   "u": "https://editorapantanal.com.br/ebooks/2021/aplicacoes-de-machine-learning/ebook.pdf"
+  },
+  {
+   "t": "Inteligência artificial: avanços e tendências",
+   "u": "https://www.livrosabertos.sibi.usp.br/portaldelivrosUSP/catalog/view/650/579/2181"
+  },
+  {
+   "t": "Processamento de Linguagem Natural: Conceitos, Técnicas e Aplicações em Português",
+   "u": "https://brasileiraspln.com/livro-pln/"
+  }
+ ],
+ "mat-dados": [
+  {
+   "t": "Introdução à programação em Julia",
+   "u": "https://juliaintro.github.io/JuliaIntroBR.jl/index.html"
+  },
+  {
+   "t": "Programação de Computadores com Linguagem Julia",
+   "u": "https://github.com/J-AugustoManzano/LivroLinJulia"
+  },
+  {
+   "t": "Breve Introdução ao LaTeX2e",
+   "u": "http://www.if.ufrj.br/~sandra/MetComp/doc/latex.pdf"
+  },
+  {
+   "t": "Introdução ao LaTeX 2 - Ou LaTeX 2 em 105 minutos",
+   "u": "http://ctan.org/pkg/lshort-portuguese-br"
+  },
+  {
+   "t": "Latexação",
+   "u": "https://www.ime.usp.br/~tassio/arquivo/latex/apostila.pdf"
+  },
+  {
+   "t": "Análise Exploratória de Dados usando o R",
+   "u": "http://www.uesc.br/editora/livrosdigitais2/analiseexploratoria_r.pdf"
+  },
+  {
+   "t": "Fundamentos Estatísticos de Ciência dos Dados",
+   "u": "https://biblioteca.unisced.edu.mz/pdfjs/web/viewer.html?file=https://biblioteca.unisced.edu.mz/bitstream/123456789/2209/1/Fundamentos%20Estat%c3%adsticos%20de%20Ci%c3%aancia%20dos%20Dados.pdf"
+  },
+  {
+   "t": "Introdução à Linguagem R: seus fundamentos e sua prática",
+   "u": "https://pedropark99.github.io/Introducao_R/"
+  },
+  {
+   "t": "R para cientistas sociais",
+   "u": "http://www.uesc.br/editora/livrosdigitais_20140513/r_cientistas.pdf"
+  }
+ ],
+ "python": [
+  {
+   "t": "Apostila de Python",
+   "u": "https://www1.univap.br/alberson/apostilas/pooi/apostila_pooi_1bi.pdf"
+  },
+  {
+   "t": "Aprenda computação com Python",
+   "u": "https://aprendendo-computacao-com-python.readthedocs.org/en/latest/index.html"
+  },
+  {
+   "t": "Curso de Python e Django",
+   "u": "https://osantana.me/curso-de-python-e-django"
+  },
+  {
+   "t": "Django 101 - Introdução ao Django",
+   "u": "http://turing.com.br/material/acpython/mod3/django/index.html"
+  },
+  {
+   "t": "FastAPI do Zero",
+   "u": "https://fastapidozero.dunossauro.com"
+  },
+  {
+   "t": "Introdução a Visão Computacional com Python e OpenCV",
+   "u": "http://professor.luzerna.ifc.edu.br/ricardo-antonello/wp-content/uploads/sites/8/2017/02/Livro-Introdu%C3%A7%C3%A3o-a-Vis%C3%A3o-Computacional-com-Python-e-OpenCV-3.pdf"
+  },
+  {
+   "t": "Introdução ao Python",
+   "u": "https://files.cercomp.ufg.br/weby/up/688/o/M2_IP_24-09-24.pdf"
+  },
+  {
+   "t": "O Guia do Mochileiro para Python!",
+   "u": "https://python-guide-pt-br.readthedocs.io/pt_BR/latest/"
+  },
+  {
+   "t": "O tutorial de Python",
+   "u": "http://turing.com.br/pydoc/2.7/tutorial/"
+  },
+  {
+   "t": "Pensando Tkinter",
+   "u": "https://www.dcc.ufrj.br/~fabiom/mab225/PensandoTkinter.pdf"
+  },
+  {
+   "t": "Pense em Python",
+   "u": "https://penseallen.github.io/PensePython2e"
+  },
+  {
+   "t": "Python e Orientação a Objetos",
+   "u": "https://www.caelum.com.br/apostila-python-orientacao-a-objetos/"
+  },
+  {
+   "t": "Python Fluente, Segunda Edição (2023)",
+   "u": "https://pythonfluente.com"
+  },
+  {
+   "t": "Python Funcional",
+   "u": "https://dunossauro.github.io/python-funcional/"
+  },
+  {
+   "t": "Python para Desenvolvedores",
+   "u": "https://ark4n.files.wordpress.com/2010/01/python_para_desenvolvedores_2ed.pdf"
+  },
+  {
+   "t": "Python para Matemáticos",
+   "u": "https://sbm.org.br/wp-content/uploads/2023/09/Minicurso_Python_final2.pdf"
+  },
+  {
+   "t": "Tutorial Django Girls",
+   "u": "http://tutorial.djangogirls.org/pt/"
+  },
+  {
+   "t": "Desenvolvimento Web com Python e Django",
+   "u": "https://pythonacademy.com.br/ebooks/desenvolvimento-web-com-python-e-django"
+  },
+  {
+   "t": "Documentação do Django",
+   "u": "https://docs.djangoproject.com/pt-br"
+  },
+  {
+   "t": "Tutorial Django Girls",
+   "u": "https://tutorial.djangogirls.org/pt/"
+  }
+ ],
+ "bash": [
+  {
+   "t": "Bash Scripting",
+   "u": "https://meleu.gitbooks.io/bashscripting/content/"
+  },
+  {
+   "t": "Casamento de Padrões no Shell do GNU/Linux",
+   "u": "https://blauaraujo.com/downloads/shell-pattern-matching.pdf"
+  },
+  {
+   "t": "Introdução ao Shell Script",
+   "u": "http://aurelio.net/shell/apostila-introducao-shell.pdf"
+  },
+  {
+   "t": "Pequena introdução ao linux e ao Shell Script",
+   "u": "https://www.telecom.uff.br/pet/petws/downloads/apostilas/LINUX.pdf"
+  },
+  {
+   "t": "Pequeno Manual do Programador GNU/Bash",
+   "u": "https://blauaraujo.com/downloads/pmpgb.pdf"
+  }
+ ],
+ "net": [
+  {
+   "t": "Guia da Computação em Nuvem: Conceito, Prática & Capacitação",
+   "u": "https://archive.org/details/guia-da-computacao-em-nuvem"
+  },
+  {
+   "t": "O Editor de Texto Vim",
+   "u": "https://code.google.com/p/vimbook"
+  },
+  {
+   "t": "Vim para Noobs",
+   "u": "https://woliveiras.com.br/vimparanoobs/"
+  },
+  {
+   "t": "Vimbook",
+   "u": "https://cassiobotaro.dev/vimbook/"
+  },
+  {
+   "t": "Visual Studio Code: Produtividade infinita",
+   "u": "https://github.com/bylearn/VS-Code-Produtividade-Infinita"
+  },
+  {
+   "t": "Algoritmos e Estruturas de Dados 1",
+   "u": "https://www.inf.ufpr.br/marcos/livro_alg1/livro_alg1.pdf"
+  },
+  {
+   "t": "Algoritmos e Programação",
+   "u": "https://www.ifmg.edu.br/ceadop3/apostilas/algoritmos-e-programacao"
+  },
+  {
+   "t": "Introdução a Algoritmos e Programação",
+   "u": "http://www.ferrari.pro.br/home/documents/FFerrari-CCechinel-Introducao-a-algoritmos.pdf"
+  },
+  {
+   "t": "Lógica de Programação para iniciantes",
+   "u": "https://dicasdeprogramacao.com.br/download/ebook-logica-de-programacao-para-iniciantes.pdf"
+  },
+  {
+   "t": "Paradigmas de programação",
+   "u": "https://github.com/edsomjr/Paradigmas"
+  },
+  {
+   "t": "Guia Foca Linux",
+   "u": "https://www.guiafoca.org/#download"
+  },
+  {
+   "t": "Linux Essentials",
+   "u": "https://learning.lpi.org/pt/learning-materials/010-160/"
+  },
+  {
+   "t": "Sistemas Operacionais: Conceitos e Mecanismos",
+   "u": "http://wiki.inf.ufpr.br/maziero/lib/exe/fetch.php?media=socm:socm-livro.pdf"
+  }
+ ],
+ "red": [
+  {
+   "t": "Assembly x86",
+   "u": "https://mentebinaria.gitbook.io/assembly-x86/"
+  },
+  {
+   "t": "Linguagem Assembly: Introdução ao padrão Intel 8086",
+   "u": "https://github.com/J-AugustoManzano/livro_Assembly-Intro-8086"
+  },
+  {
+   "t": "Algoritmos em Grafos",
+   "u": "https://www.ime.usp.br/~yoshi/2005i/mac328/"
+  },
+  {
+   "t": "Algoritmos para Grafos (via Sedgewick)",
+   "u": "https://www.ime.usp.br/~pf/algoritmos_para_grafos/"
+  },
+  {
+   "t": "Apostila Linguagem C",
+   "u": "http://www.ime.usp.br/~slago/slago-C.pdf"
+  },
+  {
+   "t": "C Completo e Total - Terceira Edição (1996)",
+   "u": "https://www.inf.ufpr.br/lesoliveira/download/c-completo-total.pdf"
+  },
+  {
+   "t": "Guia Beej's Para Programação em Rede - Usando Internet Sockets",
+   "u": "http://beej.us/guide/bgnet/translations/bgnet_ptbr.html"
+  },
+  {
+   "t": "Introdução a Programação",
+   "u": "https://github.com/ufpb-computacao/introducao-a-programacao-livro/releases"
+  },
+  {
+   "t": "Linguagem C - Notas de Aula",
+   "u": "https://www.inf.ufpr.br/cursos/ci067/Docs/NotasAula/"
+  },
+  {
+   "t": "O Fantástico Mundo da Linguagem C",
+   "u": "https://fiorix.files.wordpress.com/2014/04/o-fantc3a1stico-mundo-da-linguagem-c.pdf"
+  },
+  {
+   "t": "Projeto de Algoritmos (em C)",
+   "u": "http://www.ime.usp.br/~pf/algoritmos/"
+  }
+ ],
+ "blue": [
+  {
+   "t": "Engenharia de Software - Uma Abordagem Profissional",
+   "u": "https://web.icmc.usp.br/SCATUSU/Boletim_aquisicao/Boletim_Julho_2019/capas_julho_2019/Pressman_Engenharia0001.pdf"
+  },
+  {
+   "t": "Engenharia de Software Moderna",
+   "u": "https://engsoftmoderna.info"
+  },
+  {
+   "t": "Kanban e Scrum - obtendo o melhor de ambos",
+   "u": "http://www.infoq.com/br/minibooks/kanban-scrum-minibook"
+  },
+  {
+   "t": "Kanban em 10 Passos",
+   "u": "http://www.infoq.com/br/minibooks/priming-kanban-jesper-boeg"
+  },
+  {
+   "t": "Scrum e XP direto das Trincheiras",
+   "u": "http://www.infoq.com/br/minibooks/scrum-xp-from-the-trenches"
+  },
+  {
+   "t": "ASP.NET Core architecture",
+   "u": "https://docs.microsoft.com/pt-br/dotnet/architecture/modern-web-apps-azure/"
+  },
+  {
+   "t": "Melhores Práticas de Arquitetura de Software na era da Nuvem",
+   "u": "https://leanpub.com/manual-arquitetura-software"
+  },
+  {
+   "t": "Microservices architecture",
+   "u": "https://docs.microsoft.com/pt-br/dotnet/architecture/microservices/"
+  },
+  {
+   "t": "Modernizing existing .NET apps",
+   "u": "https://docs.microsoft.com/pt-br/dotnet/architecture/modernize-with-azure-containers/"
+  },
+  {
+   "t": "CI - Integração Contínua Sem Desculpa",
+   "u": "https://ci.mrprompt.com.br"
+  },
+  {
+   "t": "Primeiros passos com Padrões de Projeto",
+   "u": "https://leanpub.com/primeiros-passos-com-padroes-de-projeto/"
+  }
+ ],
+ "crypto": [
+  {
+   "t": "Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/analise_de_algoritmos/"
+  },
+  {
+   "t": "Computação: Matemática Discreta",
+   "u": "https://educapes.capes.gov.br/bitstream/capes/432209/2/Livro_Matematica%20Discreta.pdf"
+  },
+  {
+   "t": "Exercícios de Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/grafos-exercicios/"
+  },
+  {
+   "t": "Matemática Fundacional para Computação - Em progresso",
+   "u": "https://www.tsouanas.org/fmcbook/"
+  },
+  {
+   "t": "Minicurso de Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/livrinho-AA/"
+  },
+  {
+   "t": "Otimização Combinatória",
+   "u": "https://www.ime.usp.br/~pf/otimizacao-combinatoria/"
+  },
+  {
+   "t": "Uma Introdução Sucinta à Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/teoriadosgrafos/"
+  },
+  {
+   "t": "Guia da Computação em Nuvem: Conceito, Prática & Capacitação",
+   "u": "https://archive.org/details/guia-da-computacao-em-nuvem"
+  },
+  {
+   "t": "O Editor de Texto Vim",
+   "u": "https://code.google.com/p/vimbook"
+  },
+  {
+   "t": "Vim para Noobs",
+   "u": "https://woliveiras.com.br/vimparanoobs/"
+  },
+  {
+   "t": "Vimbook",
+   "u": "https://cassiobotaro.dev/vimbook/"
+  },
+  {
+   "t": "Visual Studio Code: Produtividade infinita",
+   "u": "https://github.com/bylearn/VS-Code-Produtividade-Infinita"
+  },
+  {
+   "t": "Algoritmos e Estruturas de Dados 1",
+   "u": "https://www.inf.ufpr.br/marcos/livro_alg1/livro_alg1.pdf"
+  },
+  {
+   "t": "Algoritmos e Programação",
+   "u": "https://www.ifmg.edu.br/ceadop3/apostilas/algoritmos-e-programacao"
+  },
+  {
+   "t": "Introdução a Algoritmos e Programação",
+   "u": "http://www.ferrari.pro.br/home/documents/FFerrari-CCechinel-Introducao-a-algoritmos.pdf"
+  },
+  {
+   "t": "Lógica de Programação para iniciantes",
+   "u": "https://dicasdeprogramacao.com.br/download/ebook-logica-de-programacao-para-iniciantes.pdf"
+  },
+  {
+   "t": "Paradigmas de programação",
+   "u": "https://github.com/edsomjr/Paradigmas"
+  },
+  {
+   "t": "Guia Foca Linux",
+   "u": "https://www.guiafoca.org/#download"
+  },
+  {
+   "t": "Linux Essentials",
+   "u": "https://learning.lpi.org/pt/learning-materials/010-160/"
+  },
+  {
+   "t": "Sistemas Operacionais: Conceitos e Mecanismos",
+   "u": "http://wiki.inf.ufpr.br/maziero/lib/exe/fetch.php?media=socm:socm-livro.pdf"
+  }
+ ],
+ "calculo1": [
+  {
+   "t": "Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/analise_de_algoritmos/"
+  },
+  {
+   "t": "Computação: Matemática Discreta",
+   "u": "https://educapes.capes.gov.br/bitstream/capes/432209/2/Livro_Matematica%20Discreta.pdf"
+  },
+  {
+   "t": "Exercícios de Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/grafos-exercicios/"
+  },
+  {
+   "t": "Matemática Fundacional para Computação - Em progresso",
+   "u": "https://www.tsouanas.org/fmcbook/"
+  },
+  {
+   "t": "Minicurso de Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/livrinho-AA/"
+  },
+  {
+   "t": "Otimização Combinatória",
+   "u": "https://www.ime.usp.br/~pf/otimizacao-combinatoria/"
+  },
+  {
+   "t": "Uma Introdução Sucinta à Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/teoriadosgrafos/"
+  }
+ ],
+ "calculo2": [
+  {
+   "t": "Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/analise_de_algoritmos/"
+  },
+  {
+   "t": "Computação: Matemática Discreta",
+   "u": "https://educapes.capes.gov.br/bitstream/capes/432209/2/Livro_Matematica%20Discreta.pdf"
+  },
+  {
+   "t": "Exercícios de Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/grafos-exercicios/"
+  },
+  {
+   "t": "Matemática Fundacional para Computação - Em progresso",
+   "u": "https://www.tsouanas.org/fmcbook/"
+  },
+  {
+   "t": "Minicurso de Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/livrinho-AA/"
+  },
+  {
+   "t": "Otimização Combinatória",
+   "u": "https://www.ime.usp.br/~pf/otimizacao-combinatoria/"
+  },
+  {
+   "t": "Uma Introdução Sucinta à Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/teoriadosgrafos/"
+  }
+ ],
+ "calc-diff-int": [
+  {
+   "t": "Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/analise_de_algoritmos/"
+  },
+  {
+   "t": "Computação: Matemática Discreta",
+   "u": "https://educapes.capes.gov.br/bitstream/capes/432209/2/Livro_Matematica%20Discreta.pdf"
+  },
+  {
+   "t": "Exercícios de Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/grafos-exercicios/"
+  },
+  {
+   "t": "Matemática Fundacional para Computação - Em progresso",
+   "u": "https://www.tsouanas.org/fmcbook/"
+  },
+  {
+   "t": "Minicurso de Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/livrinho-AA/"
+  },
+  {
+   "t": "Otimização Combinatória",
+   "u": "https://www.ime.usp.br/~pf/otimizacao-combinatoria/"
+  },
+  {
+   "t": "Uma Introdução Sucinta à Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/teoriadosgrafos/"
+  }
+ ],
+ "fisica-ti": [
+  {
+   "t": "Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/analise_de_algoritmos/"
+  },
+  {
+   "t": "Computação: Matemática Discreta",
+   "u": "https://educapes.capes.gov.br/bitstream/capes/432209/2/Livro_Matematica%20Discreta.pdf"
+  },
+  {
+   "t": "Exercícios de Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/grafos-exercicios/"
+  },
+  {
+   "t": "Matemática Fundacional para Computação - Em progresso",
+   "u": "https://www.tsouanas.org/fmcbook/"
+  },
+  {
+   "t": "Minicurso de Análise de Algoritmos",
+   "u": "https://www.ime.usp.br/~pf/livrinho-AA/"
+  },
+  {
+   "t": "Otimização Combinatória",
+   "u": "https://www.ime.usp.br/~pf/otimizacao-combinatoria/"
+  },
+  {
+   "t": "Uma Introdução Sucinta à Teoria dos Grafos",
+   "u": "https://www.ime.usp.br/~pf/teoriadosgrafos/"
+  }
+ ],
+ "forense": [
+  {
+   "t": "Assembly x86",
+   "u": "https://mentebinaria.gitbook.io/assembly-x86/"
+  },
+  {
+   "t": "Linguagem Assembly: Introdução ao padrão Intel 8086",
+   "u": "https://github.com/J-AugustoManzano/livro_Assembly-Intro-8086"
+  },
+  {
+   "t": "Algoritmos em Grafos",
+   "u": "https://www.ime.usp.br/~yoshi/2005i/mac328/"
+  },
+  {
+   "t": "Algoritmos para Grafos (via Sedgewick)",
+   "u": "https://www.ime.usp.br/~pf/algoritmos_para_grafos/"
+  },
+  {
+   "t": "Apostila Linguagem C",
+   "u": "http://www.ime.usp.br/~slago/slago-C.pdf"
+  },
+  {
+   "t": "C Completo e Total - Terceira Edição (1996)",
+   "u": "https://www.inf.ufpr.br/lesoliveira/download/c-completo-total.pdf"
+  },
+  {
+   "t": "Guia Beej's Para Programação em Rede - Usando Internet Sockets",
+   "u": "http://beej.us/guide/bgnet/translations/bgnet_ptbr.html"
+  },
+  {
+   "t": "Introdução a Programação",
+   "u": "https://github.com/ufpb-computacao/introducao-a-programacao-livro/releases"
+  },
+  {
+   "t": "Linguagem C - Notas de Aula",
+   "u": "https://www.inf.ufpr.br/cursos/ci067/Docs/NotasAula/"
+  },
+  {
+   "t": "O Fantástico Mundo da Linguagem C",
+   "u": "https://fiorix.files.wordpress.com/2014/04/o-fantc3a1stico-mundo-da-linguagem-c.pdf"
+  },
+  {
+   "t": "Projeto de Algoritmos (em C)",
+   "u": "http://www.ime.usp.br/~pf/algoritmos/"
+  }
+ ],
+ "_geral": [
+  {
+   "t": "Guia da Computação em Nuvem: Conceito, Prática & Capacitação",
+   "u": "https://archive.org/details/guia-da-computacao-em-nuvem"
+  },
+  {
+   "t": "O Editor de Texto Vim",
+   "u": "https://code.google.com/p/vimbook"
+  },
+  {
+   "t": "Vim para Noobs",
+   "u": "https://woliveiras.com.br/vimparanoobs/"
+  },
+  {
+   "t": "Vimbook",
+   "u": "https://cassiobotaro.dev/vimbook/"
+  },
+  {
+   "t": "Visual Studio Code: Produtividade infinita",
+   "u": "https://github.com/bylearn/VS-Code-Produtividade-Infinita"
+  },
+  {
+   "t": "Algoritmos e Estruturas de Dados 1",
+   "u": "https://www.inf.ufpr.br/marcos/livro_alg1/livro_alg1.pdf"
+  },
+  {
+   "t": "Algoritmos e Programação",
+   "u": "https://www.ifmg.edu.br/ceadop3/apostilas/algoritmos-e-programacao"
+  },
+  {
+   "t": "Introdução a Algoritmos e Programação",
+   "u": "http://www.ferrari.pro.br/home/documents/FFerrari-CCechinel-Introducao-a-algoritmos.pdf"
+  },
+  {
+   "t": "Lógica de Programação para iniciantes",
+   "u": "https://dicasdeprogramacao.com.br/download/ebook-logica-de-programacao-para-iniciantes.pdf"
+  },
+  {
+   "t": "Paradigmas de programação",
+   "u": "https://github.com/edsomjr/Paradigmas"
+  },
+  {
+   "t": "Guia Foca Linux",
+   "u": "https://www.guiafoca.org/#download"
+  },
+  {
+   "t": "Linux Essentials",
+   "u": "https://learning.lpi.org/pt/learning-materials/010-160/"
+  },
+  {
+   "t": "Sistemas Operacionais: Conceitos e Mecanismos",
+   "u": "http://wiki.inf.ufpr.br/maziero/lib/exe/fetch.php?media=socm:socm-livro.pdf"
+  },
+  {
+   "t": "Engenharia de Software - Uma Abordagem Profissional",
+   "u": "https://web.icmc.usp.br/SCATUSU/Boletim_aquisicao/Boletim_Julho_2019/capas_julho_2019/Pressman_Engenharia0001.pdf"
+  },
+  {
+   "t": "Engenharia de Software Moderna",
+   "u": "https://engsoftmoderna.info"
+  },
+  {
+   "t": "Kanban e Scrum - obtendo o melhor de ambos",
+   "u": "http://www.infoq.com/br/minibooks/kanban-scrum-minibook"
+  },
+  {
+   "t": "Kanban em 10 Passos",
+   "u": "http://www.infoq.com/br/minibooks/priming-kanban-jesper-boeg"
+  },
+  {
+   "t": "Scrum e XP direto das Trincheiras",
+   "u": "http://www.infoq.com/br/minibooks/scrum-xp-from-the-trenches"
+  },
+  {
+   "t": "ASP.NET Core architecture",
+   "u": "https://docs.microsoft.com/pt-br/dotnet/architecture/modern-web-apps-azure/"
+  },
+  {
+   "t": "Melhores Práticas de Arquitetura de Software na era da Nuvem",
+   "u": "https://leanpub.com/manual-arquitetura-software"
+  },
+  {
+   "t": "Microservices architecture",
+   "u": "https://docs.microsoft.com/pt-br/dotnet/architecture/microservices/"
+  },
+  {
+   "t": "Modernizing existing .NET apps",
+   "u": "https://docs.microsoft.com/pt-br/dotnet/architecture/modernize-with-azure-containers/"
+  },
+  {
+   "t": "CI - Integração Contínua Sem Desculpa",
+   "u": "https://ci.mrprompt.com.br"
+  },
+  {
+   "t": "Primeiros passos com Padrões de Projeto",
+   "u": "https://leanpub.com/primeiros-passos-com-padroes-de-projeto/"
+  }
+ ]
+}
