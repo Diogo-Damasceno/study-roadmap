@@ -28,18 +28,27 @@ function loadAreas() {
     const code = fs.readFileSync(path.join(DATA_DIR, f), "utf8");
     new Function("window", code)(sandbox.window);
   }
-  let expl, lessonsMod, lessonsOverrides = {};
-  try { expl = require("./explain.js"); } catch (e) { expl = null; }
-  try {
-    lessonsMod = require("./lessons-gen.js");
-    const lsandbox = { RMAP_LESSONS: {} };
-    new Function("window", fs.readFileSync(path.join(DATA_DIR, "lessons.js"), "utf8"))(lsandbox);
-    lessonsOverrides = lsandbox.RMAP_LESSONS || {};
-  } catch (e) { lessonsMod = null; }
+  // carrega todos os explicacoes/licoes por trilha (explain-*.js, lessons-*.js)
+  const EXPLAIN = {};
+  const LESSONS = {};
+  const explainFiles = fs.readdirSync(DATA_DIR).filter(f => /^explain-.*\.js$/.test(f));
+  for (const f of explainFiles) {
+    try { Object.assign(EXPLAIN, require(path.join(DATA_DIR, f)).EXPLAIN || {}); } catch (e) { /* ignora */ }
+  }
+  const lessonFiles = fs.readdirSync(DATA_DIR).filter(f => /^lessons-.*\.js$/.test(f));
+  for (const f of lessonFiles) {
+    try { Object.assign(LESSONS, require(path.join(DATA_DIR, f)).LESSONS || {}); } catch (e) { /* ignora */ }
+  }
+  function explainStage(areaId, stageId, start) { return EXPLAIN[areaId + "/" + stageId] || []; }
+  function buildLesson(areaId, stage, override) {
+    const base = LESSONS[areaId + "/" + stage.id] || null;
+    if (override && typeof override === "object") return Object.assign({}, base, override);
+    return base;
+  }
   for (const a of areas) {
     for (const s of a.stages) {
-      if (expl && expl.explainStage) s.explain = expl.explainStage(a.id, s.id, s.start);
-      if (lessonsMod && lessonsMod.buildLesson) s.lesson = lessonsMod.buildLesson(a.id, s, lessonsOverrides[`${a.id}/${s.id}`]);
+      s.explain = explainStage(a.id, s.id, s.start);
+      s.lesson = buildLesson(a.id, s, null);
     }
   }
   let order, booksMap;

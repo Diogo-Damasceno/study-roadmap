@@ -246,14 +246,5 @@
     }
   };
 
-  function buildLesson(areaId, stage, override) {
-    const key = areaId + "/" + stage.id;
-    const base = LESSONS[key] || null;
-    if (override && typeof override === "object") {
-      return Object.assign({}, base, override);
-    }
-    return base;
-  }
-
-  module.exports = { buildLesson: buildLesson };
+  module.exports = { LESSONS: LESSONS };
 })();

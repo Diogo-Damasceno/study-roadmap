@@ -166,10 +166,5 @@
     ]
   };
 
-  function explainStage(areaId, stageId, start) {
-    const key = areaId + "/" + stageId;
-    return EXPLAIN[key] || [];
-  }
-
-  module.exports = { explainStage: explainStage };
+  module.exports = { EXPLAIN: EXPLAIN };
 })();
