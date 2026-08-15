@@ -264,8 +264,12 @@ $("#loginForm").onsubmit = async (e) => {
 };
 $("#regForm").onsubmit = async (e) => {
   e.preventDefault();
-  const r = await api("/api/register", { method: "POST", body: JSON.stringify({ username: $("#rg_user").value, password: $("#rg_pass").value }) });
-  if (r && r.ok) { await refreshUser(); showApp(); } else setMsg("authMsg", errMsg(r), false);
+  const r = await api("/api/register", { method: "POST", body: JSON.stringify({ username: $("#rg_user").value, password: $("#rg_pass").value, email: $("#rg_email").value }) });
+  if (r && r.ok) {
+    if (r.sent) setMsg("authMsg", "Conta criada! Enviamos um e-mail de confirmação. Abra o link para ativar.", true);
+    else if (r.debugLink) setMsg("authMsg", "E-mail de confirmação desativado no servidor. Use este link para ativar (apenas dev): " + location.origin + r.debugLink, true);
+    else setMsg("authMsg", "Cadastro recebido, mas não informou e-mail. Sem confirmação a conta não é ativada.", false);
+  } else setMsg("authMsg", errMsg(r), false);
 };
 $("#ghBtn").onclick = () => { window.location.href = "/auth/github"; };
 $("#backBtn").onclick = () => { $("#detail").classList.add("hidden"); $("#dashboard").classList.remove("hidden"); renderAreas(); };
@@ -274,7 +278,7 @@ $("#onlyStarred").onclick = () => { state.onlyStarred = !state.onlyStarred; rend
 
 function setMsg(id, txt, ok) { const el = $(id); el.textContent = txt; el.className = "msg " + (ok ? "ok" : "err"); }
 function errMsg(r) {
-  const m = { usuario_existe: "Usuário já existe.", senha_min_8: "Senha precisa de 8+ caracteres.", usuario_3_30: "Usuário entre 3 e 30 caracteres.", campos: "Preencha todos os campos." };
+  const m = { usuario_existe: "Usuário já existe.", senha_min_8: "Senha precisa de 8+ caracteres.", usuario_3_30: "Usuário entre 3 e 30 caracteres.", campos: "Preencha todos os campos.", email_invalido: "E-mail inválido." };
   return (r && r.error && m[r.error]) || "Não foi possível concluir.";
 }
 
@@ -283,6 +287,15 @@ function errMsg(r) {
   if (data) state.areas = data.areas;
   const cfg = await api("/api/config");
   if (cfg && !cfg.githubEnabled) { const b = $("#ghBtn"); if (b) b.style.display = "none"; }
-  await refreshUser();
-  if (state.user) showApp(); else showLogin();
+  // fluxo de confirmacao por e-mail: /confirm?token=...
+  const params = new URLSearchParams(location.search);
+  const token = params.get("token");
+  if (token) {
+    const cr = await api("/api/confirm?token=" + encodeURIComponent(token));
+    if (cr && cr.ok) { await refreshUser(); showApp(); }
+    else { setMsg("authMsg", "Link de confirmação inválido ou expirado.", false); showLogin(); }
+  } else {
+    await refreshUser();
+    if (state.user) showApp(); else showLogin();
+  }
 })();

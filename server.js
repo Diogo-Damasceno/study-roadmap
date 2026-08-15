@@ -3,6 +3,8 @@
    headers via helmet, rate limit em auth, CSRF token em formularios. */
 const path = require("path");
 const fs = require("fs");
+const crypto = require("crypto");
+const https = require("https");
 const express = require("express");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
@@ -15,6 +17,9 @@ const GitHubStrategy = require("passport-github2").Strategy;
 const PORT = process.env.PORT || 3000;
 const SESSION_SECRET = process.env.SESSION_SECRET || "troque-este-segredo-em-producao";
 const DATA_DIR = __dirname;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const APP_URL = (process.env.APP_URL || "").replace(/\/$/, "");
+const FROM_EMAIL = process.env.FROM_EMAIL || "Roadmap de Estudos <onboarding@resend.dev>";
 
 /* ---------- Banco de dados (SQLite em arquivo local) ---------- */
 const db = new Database(path.join(DATA_DIR, "estudos.db"));
@@ -45,7 +50,52 @@ db.exec(`
     starred INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (user_id, area_id)
   );
+  CREATE TABLE IF NOT EXISTS pending (
+    token TEXT PRIMARY KEY,
+    username TEXT NOT NULL,
+    email TEXT,
+    pass_hash TEXT NOT NULL,
+    created_at INTEGER NOT NULL,
+    expires_at INTEGER NOT NULL
+  );
 `);
+
+/* ---------- Envio de email de confirmacao (Resend) ---------- */
+function sendConfirmationEmail(toEmail, token) {
+  return new Promise((resolve) => {
+    if (!RESEND_API_KEY || !APP_URL) { resolve(false); return; }
+    const confirmUrl = `${APP_URL}/confirm?token=${encodeURIComponent(token)}`;
+    const payload = JSON.stringify({
+      from: FROM_EMAIL,
+      to: [toEmail],
+      subject: "Confirme seu cadastro - Roadmap de Estudos",
+      html: `<div style="font-family:system-ui,sans-serif;max-width:480px;margin:auto;padding:20px;color:#1a1a1a">` +
+        `<h2>Confirme seu e-mail</h2>` +
+        `<p>Olá! Recebemos um pedido de cadastro no <strong>Roadmap de Estudos</strong>. Clique no botão abaixo para ativar sua conta:</p>` +
+        `<p style="margin:24px 0"><a href="${confirmUrl}" style="background:#7fd1b9;color:#0b0e0c;text-decoration:none;padding:12px 22px;border-radius:8px;font-weight:700">Confirmar e ativar conta</a></p>` +
+        `<p style="font-size:13px;color:#666">Se não foi você, ignore este e-mail. O link expira em 24 horas.</p>` +
+        `<p style="font-size:12px;color:#999">${confirmUrl}</p>` +
+        `</div>`
+    });
+    const req = https.request({
+      method: "POST",
+      hostname: "api.resend.com",
+      path: "/emails",
+      headers: {
+        "Authorization": "Bearer " + RESEND_API_KEY,
+        "Content-Type": "application/json",
+        "Content-Length": Buffer.byteLength(payload)
+      }
+    }, (r) => {
+      let body = "";
+      r.on("data", (c) => body += c);
+      r.on("end", () => resolve(r.statusCode >= 200 && r.statusCode < 300));
+    });
+    req.on("error", () => resolve(false));
+    req.write(payload);
+    req.end();
+  });
+}
 
 /* ---------- Carregar trilhas dos arquivos de dados ---------- */
 function loadAreas() {
@@ -131,7 +181,7 @@ passport.deserializeUser((id, done) => {
 
 /* ---------- App ---------- */
 const app = express();
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -200,18 +250,39 @@ app.post("/api/star", (req, res) => {
   res.json({ ok: true });
 });
 
-/* ---------- Auth: senha ---------- */
-app.post("/api/register", authLimiter, (req, res) => {
-  const { username, password } = req.body || {};
+/* ---------- Auth: senha (com confirmacao por e-mail) ---------- */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+app.post("/api/register", authLimiter, async (req, res) => {
+  const { username, password, email } = req.body || {};
   if (!username || !password) return res.status(400).json({ error: "campos" });
   if (username.length < 3 || username.length > 30) return res.status(400).json({ error: "usuario_3_30" });
   if (password.length < 8) return res.status(400).json({ error: "senha_min_8" });
+  if (email && !EMAIL_RE.test(email)) return res.status(400).json({ error: "email_invalido" });
   const exists = db.prepare("SELECT id FROM users WHERE username = ?").get(username);
   if (exists) return res.status(409).json({ error: "usuario_existe" });
   const hash = bcrypt.hashSync(password, 12);
-  const info = db.prepare("INSERT INTO users (username, pass_hash, created_at, last_login) VALUES (?, ?, ?, ?)")
-    .run(username, hash, Date.now(), Date.now());
-  req.login(db.prepare("SELECT id, username, email, github_id FROM users WHERE id = ?").get(info.lastInsertRowid), () => res.json({ ok: true }));
+  const token = crypto.randomBytes(32).toString("hex");
+  const now = Date.now();
+  db.prepare("INSERT INTO pending (token, username, email, pass_hash, created_at, expires_at) VALUES (?, ?, ?, ?, ?, ?)")
+    .run(token, username, email || null, hash, now, now + 24 * 3600 * 1000);
+  const sent = email ? await sendConfirmationEmail(email, token) : false;
+  // 'debugLink' so retornado quando e-mail nao foi enviado (sem RESEND/APP_URL) p/ validar localmente
+  return res.json({ ok: true, needs_confirm: true, sent, debugLink: sent ? null : `/confirm?token=${token}` });
+});
+
+app.get("/api/confirm", (req, res) => {
+  const token = req.query.token;
+  if (!token) return res.status(400).json({ error: "token_ausente" });
+  const row = db.prepare("SELECT * FROM pending WHERE token = ?").get(token);
+  if (!row) return res.status(404).json({ error: "token_invalido" });
+  if (row.expires_at < Date.now()) {
+    db.prepare("DELETE FROM pending WHERE token = ?").run(token);
+    return res.status(410).json({ error: "token_expirado" });
+  }
+  const info = db.prepare("INSERT INTO users (username, email, pass_hash, created_at, last_login) VALUES (?, ?, ?, ?, ?)")
+    .run(row.username, row.email, row.pass_hash, row.created_at, Date.now());
+  db.prepare("DELETE FROM pending WHERE token = ?").run(token);
+  req.login({ id: info.lastInsertRowid, username: row.username, email: row.email, github_id: null }, () => res.json({ ok: true }));
 });
 
 app.post("/api/login", authLimiter, (req, res) => {
@@ -258,10 +329,12 @@ app.post("/api/run", (req, res) => {
 
 app.use(express.static(path.join(DATA_DIR, "public")));
 app.get("/", (req, res) => res.sendFile(path.join(DATA_DIR, "public", "index.html")));
+app.get("/confirm", (req, res) => res.sendFile(path.join(DATA_DIR, "public", "index.html")));
 app.get("/sobre", (req, res) => res.sendFile(path.join(DATA_DIR, "public", "sobre.html")));
 
 app.listen(PORT, () => {
   console.log(`Roadmap de estudos rodando em ${BASE_URL}`);
   if (!GH_CLIENT || !GH_SECRET) console.log("Aviso: GitHub OAuth nao configurado (defina GITHUB_CLIENT_ID e GITHUB_CLIENT_SECRET).");
   if (SESSION_SECRET === "troque-este-segredo-em-producao") console.log("Aviso: defina SESSION_SECRET em producao.");
+  if (!RESEND_API_KEY || !APP_URL) console.log("Aviso: confirmacao por e-mail desativada (defina RESEND_API_KEY e APP_URL).");
 });
