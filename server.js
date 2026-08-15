@@ -51,14 +51,6 @@ db.exec(`
     starred INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (user_id, area_id)
   );
-  CREATE TABLE IF NOT EXISTS pending (
-    token TEXT PRIMARY KEY,
-    username TEXT NOT NULL,
-    email TEXT,
-    pass_hash TEXT NOT NULL,
-    created_at INTEGER NOT NULL,
-    expires_at INTEGER NOT NULL
-  );
 `);
 
 /* ---------- Envio de email de confirmacao (Resend) ---------- */
@@ -252,7 +244,7 @@ app.post("/api/star", (req, res) => {
   res.json({ ok: true });
 });
 
-/* ---------- Auth: senha (com confirmacao por e-mail) ---------- */
+/* ---------- Auth: senha (registro ativa conta direto; e-mail de boas-vindas opcional) ---------- */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 app.post("/api/register", authLimiter, async (req, res) => {
   const { username, password, email } = req.body || {};
@@ -263,28 +255,15 @@ app.post("/api/register", authLimiter, async (req, res) => {
   const exists = db.prepare("SELECT id FROM users WHERE username = ?").get(username);
   if (exists) return res.status(409).json({ error: "usuario_existe" });
   const hash = bcrypt.hashSync(password, 12);
-  const token = crypto.randomBytes(32).toString("hex");
-  const now = Date.now();
-  db.prepare("INSERT INTO pending (token, username, email, pass_hash, created_at, expires_at) VALUES (?, ?, ?, ?, ?, ?)")
-    .run(token, username, email || null, hash, now, now + 24 * 3600 * 1000);
-  const sent = email ? await sendConfirmationEmail(email, token) : false;
-  // 'debugLink' so retornado quando e-mail nao foi enviado (sem RESEND/APP_URL) p/ validar localmente
-  return res.json({ ok: true, needs_confirm: true, sent, debugLink: sent ? null : `/confirm?token=${token}` });
-});
-
-app.get("/api/confirm", (req, res) => {
-  const token = req.query.token;
-  if (!token) return res.status(400).json({ error: "token_ausente" });
-  const row = db.prepare("SELECT * FROM pending WHERE token = ?").get(token);
-  if (!row) return res.status(404).json({ error: "token_invalido" });
-  if (row.expires_at < Date.now()) {
-    db.prepare("DELETE FROM pending WHERE token = ?").run(token);
-    return res.status(410).json({ error: "token_expirado" });
-  }
   const info = db.prepare("INSERT INTO users (username, email, pass_hash, created_at, last_login) VALUES (?, ?, ?, ?, ?)")
-    .run(row.username, row.email, row.pass_hash, row.created_at, Date.now());
-  db.prepare("DELETE FROM pending WHERE token = ?").run(token);
-  req.login({ id: info.lastInsertRowid, username: row.username, email: row.email, github_id: null }, () => res.json({ ok: true }));
+    .run(username, email || null, hash, Date.now(), Date.now());
+  const user = db.prepare("SELECT id, username, email, github_id FROM users WHERE id = ?").get(info.lastInsertRowid);
+  // e-mail de boas-vindas apenas se Resend estiver configurado (nao bloqueia o cadastro)
+  if (email && RESEND_API_KEY && APP_URL) {
+    const token = crypto.randomBytes(16).toString("hex");
+    sendConfirmationEmail(email, token);
+  }
+  req.login(user, () => res.json({ ok: true }));
 });
 
 app.post("/api/login", authLimiter, (req, res) => {
@@ -331,7 +310,6 @@ app.post("/api/run", (req, res) => {
 
 app.use(express.static(path.join(DATA_DIR, "public")));
 app.get("/", (req, res) => res.sendFile(path.join(DATA_DIR, "public", "index.html")));
-app.get("/confirm", (req, res) => res.sendFile(path.join(DATA_DIR, "public", "index.html")));
 app.get("/sobre", (req, res) => res.sendFile(path.join(DATA_DIR, "public", "sobre.html")));
 
 app.listen(PORT, () => {
