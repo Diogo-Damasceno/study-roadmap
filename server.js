@@ -1,54 +1,22 @@
 /* Servidor da plataforma de roadmap de estudos.
-   Seguranca: senhas com bcrypt, sessoes assinadas, SQLite via prepared statements,
-   headers via helmet, rate limit em auth, CSRF token em formularios. */
+   Seguranca: senhas com bcrypt, sessoes assinadas, banco via db.js (Turso ou SQLite local).
+   headers via helmet, rate limit em auth. */
 const path = require("path");
 const fs = require("fs");
 const express = require("express");
 const session = require("express-session");
 const SQLiteStore = require("connect-sqlite3")(session);
 const bcrypt = require("bcryptjs");
-const Database = require("better-sqlite3");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const passport = require("passport");
 const GitHubStrategy = require("passport-github2").Strategy;
+const { dbInit, dbGet, dbAll, dbRun, getMode } = require("./db");
 
 const PORT = process.env.PORT || 3000;
 const SESSION_SECRET = process.env.SESSION_SECRET || "troque-este-segredo-em-producao";
 const DATA_DIR = __dirname;
 
-/* ---------- Banco de dados (SQLite em arquivo local) ---------- */
-const db = new Database(path.join(DATA_DIR, "estudos.db"));
-db.pragma("journal_mode = WAL");
-db.pragma("foreign_keys = ON");
-db.exec(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
-    email TEXT,
-    pass_hash TEXT,
-    github_id TEXT UNIQUE,
-    created_at INTEGER NOT NULL,
-    last_login INTEGER
-  );
-  CREATE TABLE IF NOT EXISTS progress (
-    user_id INTEGER NOT NULL,
-    area_id TEXT NOT NULL,
-    stage_id TEXT NOT NULL,
-    exercise_idx INTEGER NOT NULL,
-    done INTEGER NOT NULL DEFAULT 0,
-    updated_at INTEGER NOT NULL,
-    PRIMARY KEY (user_id, area_id, stage_id, exercise_idx)
-  );
-  CREATE TABLE IF NOT EXISTS stars (
-    user_id INTEGER NOT NULL,
-    area_id TEXT NOT NULL,
-    starred INTEGER NOT NULL DEFAULT 0,
-    PRIMARY KEY (user_id, area_id)
-  );
-`);
-
-/* ---------- Envio de email de confirmacao (Resend) ---------- */
 /* ---------- Carregar trilhas dos arquivos de dados ---------- */
 function loadAreas() {
   const areas = [];
@@ -58,10 +26,8 @@ function loadAreas() {
   const sandbox = { window: { RMAP: areas } };
   for (const f of files) {
     const code = fs.readFileSync(path.join(DATA_DIR, f), "utf8");
-    // cada arquivo faz window.RMAP.push(...); empurra direto no nosso array
     new Function("window", code)(sandbox.window);
   }
-  // anexa explicacoes didaticas e aula pratica a cada modulo
   let expl, lessonsMod, lessonsOverrides = {};
   try { expl = require("./explain.js"); } catch (e) { expl = null; }
   try {
@@ -76,7 +42,6 @@ function loadAreas() {
       if (lessonsMod && lessonsMod.buildLesson) s.lesson = lessonsMod.buildLesson(a.id, s, lessonsOverrides[`${a.id}/${s.id}`]);
     }
   }
-  // aplica ordem de jornada (nivel + prerequisitos) e ordena por nivel
   let order, booksMap;
   try { order = require("./roadmap-order.js"); } catch (e) { order = null; }
   try { booksMap = require("./books-by-area.json"); } catch (e) { booksMap = null; }
@@ -93,9 +58,7 @@ function loadAreas() {
   }
   return areas;
 }
-let AREAS = loadAreas();
-const AREA_MAP = {};
-AREAS.forEach(a => (AREA_MAP[a.id] = a));
+const AREAS = loadAreas();
 
 /* ---------- Passport / GitHub OAuth (opcional) ---------- */
 const GH_CLIENT = process.env.GITHUB_CLIENT_ID;
@@ -107,27 +70,28 @@ if (GH_CLIENT && GH_SECRET) {
     callbackURL: BASE_URL ? BASE_URL + "/auth/github/callback" : "/auth/github/callback",
     userAgent: "study-roadmap",
     scope: ["read:user"]
-  }, (accessToken, refreshToken, profile, done) => {
+  }, async (accessToken, refreshToken, profile, done) => {
     try {
-      let row = db.prepare("SELECT * FROM users WHERE github_id = ?").get(profile.id);
+      let row = await dbGet("SELECT * FROM users WHERE github_id = ?", [profile.id]);
       if (!row) {
         const uname = (profile.username || "gh" + profile.id).toLowerCase();
-        const exists = db.prepare("SELECT id FROM users WHERE username = ?").get(uname);
+        const exists = await dbGet("SELECT id FROM users WHERE username = ?", [uname]);
         const finalName = exists ? `${uname}_${profile.id}` : uname;
-        const info = db.prepare(
-          "INSERT INTO users (username, email, github_id, created_at, last_login) VALUES (?, ?, ?, ?, ?)"
-        ).run(finalName, profile.emails && profile.emails[0] && profile.emails[0].value, profile.id, Date.now(), Date.now());
-        row = db.prepare("SELECT * FROM users WHERE id = ?").get(info.lastInsertRowid);
+        const info = await dbRun(
+          "INSERT INTO users (username, email, github_id, created_at, last_login) VALUES (?, ?, ?, ?, ?)",
+          [finalName, profile.emails && profile.emails[0] && profile.emails[0].value, profile.id, Date.now(), Date.now()]
+        );
+        row = await dbGet("SELECT * FROM users WHERE id = ?", [info.lastInsertRowid]);
       } else {
-        db.prepare("UPDATE users SET last_login = ? WHERE id = ?").run(Date.now(), row.id);
+        await dbRun("UPDATE users SET last_login = ? WHERE id = ?", [Date.now(), row.id]);
       }
       return done(null, row);
     } catch (e) { return done(e); }
   }));
 }
 passport.serializeUser((user, done) => done(null, user.id));
-passport.deserializeUser((id, done) => {
-  try { const u = db.prepare("SELECT id, username, email, github_id FROM users WHERE id = ?").get(id); done(null, u); }
+passport.deserializeUser(async (id, done) => {
+  try { const u = await dbGet("SELECT id, username, email, github_id FROM users WHERE id = ?", [id]); done(null, u); }
   catch (e) { done(e); }
 });
 
@@ -167,13 +131,13 @@ app.get("/api/me", (req, res) => {
 });
 
 app.get("/api/config", (req, res) => {
-  res.json({ githubEnabled: !!(GH_CLIENT && GH_SECRET) });
+  res.json({ githubEnabled: !!(GH_CLIENT && GH_SECRET), dbMode: getMode() });
 });
 
-app.get("/api/progress", (req, res) => {
+app.get("/api/progress", async (req, res) => {
   if (!req.user) return res.status(401).json({ error: "nao_autenticado" });
-  const rows = db.prepare("SELECT area_id, stage_id, exercise_idx, done FROM progress WHERE user_id = ?").all(req.user.id);
-  const stars = db.prepare("SELECT area_id, starred FROM stars WHERE user_id = ?").all(req.user.id);
+  const rows = await dbAll("SELECT area_id, stage_id, exercise_idx, done FROM progress WHERE user_id = ?", [req.user.id]);
+  const stars = await dbAll("SELECT area_id, starred FROM stars WHERE user_id = ?", [req.user.id]);
   const prog = {};
   rows.forEach(r => { prog[`${r.area_id}/${r.stage_id}/${r.exercise_idx}`] = r.done; });
   const starMap = {};
@@ -181,25 +145,27 @@ app.get("/api/progress", (req, res) => {
   res.json({ progress: prog, stars: starMap });
 });
 
-app.post("/api/progress", (req, res) => {
+app.post("/api/progress", async (req, res) => {
   if (!req.user) return res.status(401).json({ error: "nao_autenticado" });
   const { area_id, stage_id, exercise_idx, done } = req.body || {};
   if (!area_id || !stage_id || exercise_idx === undefined) return res.status(400).json({ error: "campos" });
-  db.prepare(
+  await dbRun(
     "INSERT INTO progress (user_id, area_id, stage_id, exercise_idx, done, updated_at) VALUES (?, ?, ?, ?, ?, ?) " +
-    "ON CONFLICT(user_id, area_id, stage_id, exercise_idx) DO UPDATE SET done = excluded.done, updated_at = excluded.updated_at"
-  ).run(req.user.id, area_id, stage_id, exercise_idx, done ? 1 : 0, Date.now());
+    "ON CONFLICT(user_id, area_id, stage_id, exercise_idx) DO UPDATE SET done = excluded.done, updated_at = excluded.updated_at",
+    [req.user.id, area_id, stage_id, exercise_idx, done ? 1 : 0, Date.now()]
+  );
   res.json({ ok: true });
 });
 
-app.post("/api/star", (req, res) => {
+app.post("/api/star", async (req, res) => {
   if (!req.user) return res.status(401).json({ error: "nao_autenticado" });
   const { area_id, starred } = req.body || {};
   if (!area_id) return res.status(400).json({ error: "campos" });
-  db.prepare(
+  await dbRun(
     "INSERT INTO stars (user_id, area_id, starred) VALUES (?, ?, ?) " +
-    "ON CONFLICT(user_id, area_id) DO UPDATE SET starred = excluded.starred"
-  ).run(req.user.id, area_id, starred ? 1 : 0);
+    "ON CONFLICT(user_id, area_id) DO UPDATE SET starred = excluded.starred",
+    [req.user.id, area_id, starred ? 1 : 0]
+  );
   res.json({ ok: true });
 });
 
@@ -211,22 +177,22 @@ app.post("/api/register", authLimiter, async (req, res) => {
   if (username.length < 3 || username.length > 30) return res.status(400).json({ error: "usuario_3_30" });
   if (password.length < 8) return res.status(400).json({ error: "senha_min_8" });
   if (email && !EMAIL_RE.test(email)) return res.status(400).json({ error: "email_invalido" });
-  const exists = db.prepare("SELECT id FROM users WHERE username = ?").get(username);
+  const exists = await dbGet("SELECT id FROM users WHERE username = ?", [username]);
   if (exists) return res.status(409).json({ error: "usuario_existe" });
   const hash = bcrypt.hashSync(password, 12);
-  const info = db.prepare("INSERT INTO users (username, email, pass_hash, created_at, last_login) VALUES (?, ?, ?, ?, ?)")
-    .run(username, email || null, hash, Date.now(), Date.now());
-  const user = db.prepare("SELECT id, username, email, github_id FROM users WHERE id = ?").get(info.lastInsertRowid);
+  const info = await dbRun("INSERT INTO users (username, email, pass_hash, created_at, last_login) VALUES (?, ?, ?, ?, ?)",
+    [username, email || null, hash, Date.now(), Date.now()]);
+  const user = await dbGet("SELECT id, username, email, github_id FROM users WHERE id = ?", [info.lastInsertRowid]);
   req.login(user, () => res.json({ ok: true }));
 });
 
-app.post("/api/login", authLimiter, (req, res) => {
+app.post("/api/login", authLimiter, async (req, res) => {
   const { username, password } = req.body || {};
   if (!username || !password) return res.status(400).json({ error: "campos" });
-  const row = db.prepare("SELECT * FROM users WHERE username = ?").get(username);
+  const row = await dbGet("SELECT * FROM users WHERE username = ?", [username]);
   if (!row || !row.pass_hash || !bcrypt.compareSync(password, row.pass_hash))
     return res.status(401).json({ error: "credenciais_invalidas" });
-  db.prepare("UPDATE users SET last_login = ? WHERE id = ?").run(Date.now(), row.id);
+  await dbRun("UPDATE users SET last_login = ? WHERE id = ?", [Date.now(), row.id]);
   req.login({ id: row.id, username: row.username, email: row.email, github_id: row.github_id }, () => res.json({ ok: true }));
 });
 
@@ -261,13 +227,19 @@ app.post("/api/run", (req, res) => {
   });
 });
 
-
 app.use(express.static(path.join(DATA_DIR, "public")));
 app.get("/", (req, res) => res.sendFile(path.join(DATA_DIR, "public", "index.html")));
 app.get("/sobre", (req, res) => res.sendFile(path.join(DATA_DIR, "public", "sobre.html")));
 
-app.listen(PORT, () => {
-  console.log(`Roadmap de estudos rodando em ${BASE_URL}`);
-  if (!GH_CLIENT || !GH_SECRET) console.log("Aviso: GitHub OAuth nao configurado (defina GITHUB_CLIENT_ID e GITHUB_CLIENT_SECRET).");
-  if (SESSION_SECRET === "troque-este-segredo-em-producao") console.log("Aviso: defina SESSION_SECRET em producao.");
+/* ---------- Start (aguarda dbInit) ---------- */
+dbInit().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Roadmap de estudos rodando em ${BASE_URL} (db: ${getMode()})`);
+    if (!GH_CLIENT || !GH_SECRET) console.log("Aviso: GitHub OAuth nao configurado (defina GITHUB_CLIENT_ID e GITHUB_CLIENT_SECRET).");
+    if (SESSION_SECRET === "troque-este-segredo-em-producao") console.log("Aviso: defina SESSION_SECRET em producao.");
+    if (!process.env.DATABASE_URL) console.log("Aviso: DATABASE_URL ausente — usando SQLite local (nao persistente no deploy).");
+  });
+}).catch((e) => {
+  console.error("Falha ao iniciar banco:", e);
+  process.exit(1);
 });
