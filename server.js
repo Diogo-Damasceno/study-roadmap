@@ -3,8 +3,6 @@
    headers via helmet, rate limit em auth, CSRF token em formularios. */
 const path = require("path");
 const fs = require("fs");
-const crypto = require("crypto");
-const https = require("https");
 const express = require("express");
 const session = require("express-session");
 const SQLiteStore = require("connect-sqlite3")(session);
@@ -18,9 +16,6 @@ const GitHubStrategy = require("passport-github2").Strategy;
 const PORT = process.env.PORT || 3000;
 const SESSION_SECRET = process.env.SESSION_SECRET || "troque-este-segredo-em-producao";
 const DATA_DIR = __dirname;
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const APP_URL = (process.env.APP_URL || "").replace(/\/$/, "");
-const FROM_EMAIL = process.env.FROM_EMAIL || "Roadmap de Estudos <onboarding@resend.dev>";
 
 /* ---------- Banco de dados (SQLite em arquivo local) ---------- */
 const db = new Database(path.join(DATA_DIR, "estudos.db"));
@@ -54,42 +49,6 @@ db.exec(`
 `);
 
 /* ---------- Envio de email de confirmacao (Resend) ---------- */
-function sendConfirmationEmail(toEmail, token) {
-  return new Promise((resolve) => {
-    if (!RESEND_API_KEY || !APP_URL) { resolve(false); return; }
-    const confirmUrl = `${APP_URL}/confirm?token=${encodeURIComponent(token)}`;
-    const payload = JSON.stringify({
-      from: FROM_EMAIL,
-      to: [toEmail],
-      subject: "Confirme seu cadastro - Roadmap de Estudos",
-      html: `<div style="font-family:system-ui,sans-serif;max-width:480px;margin:auto;padding:20px;color:#1a1a1a">` +
-        `<h2>Confirme seu e-mail</h2>` +
-        `<p>Olá! Recebemos um pedido de cadastro no <strong>Roadmap de Estudos</strong>. Clique no botão abaixo para ativar sua conta:</p>` +
-        `<p style="margin:24px 0"><a href="${confirmUrl}" style="background:#7fd1b9;color:#0b0e0c;text-decoration:none;padding:12px 22px;border-radius:8px;font-weight:700">Confirmar e ativar conta</a></p>` +
-        `<p style="font-size:13px;color:#666">Se não foi você, ignore este e-mail. O link expira em 24 horas.</p>` +
-        `<p style="font-size:12px;color:#999">${confirmUrl}</p>` +
-        `</div>`
-    });
-    const req = https.request({
-      method: "POST",
-      hostname: "api.resend.com",
-      path: "/emails",
-      headers: {
-        "Authorization": "Bearer " + RESEND_API_KEY,
-        "Content-Type": "application/json",
-        "Content-Length": Buffer.byteLength(payload)
-      }
-    }, (r) => {
-      let body = "";
-      r.on("data", (c) => body += c);
-      r.on("end", () => resolve(r.statusCode >= 200 && r.statusCode < 300));
-    });
-    req.on("error", () => resolve(false));
-    req.write(payload);
-    req.end();
-  });
-}
-
 /* ---------- Carregar trilhas dos arquivos de dados ---------- */
 function loadAreas() {
   const areas = [];
@@ -258,11 +217,6 @@ app.post("/api/register", authLimiter, async (req, res) => {
   const info = db.prepare("INSERT INTO users (username, email, pass_hash, created_at, last_login) VALUES (?, ?, ?, ?, ?)")
     .run(username, email || null, hash, Date.now(), Date.now());
   const user = db.prepare("SELECT id, username, email, github_id FROM users WHERE id = ?").get(info.lastInsertRowid);
-  // e-mail de boas-vindas apenas se Resend estiver configurado (nao bloqueia o cadastro)
-  if (email && RESEND_API_KEY && APP_URL) {
-    const token = crypto.randomBytes(16).toString("hex");
-    sendConfirmationEmail(email, token);
-  }
   req.login(user, () => res.json({ ok: true }));
 });
 
@@ -316,5 +270,4 @@ app.listen(PORT, () => {
   console.log(`Roadmap de estudos rodando em ${BASE_URL}`);
   if (!GH_CLIENT || !GH_SECRET) console.log("Aviso: GitHub OAuth nao configurado (defina GITHUB_CLIENT_ID e GITHUB_CLIENT_SECRET).");
   if (SESSION_SECRET === "troque-este-segredo-em-producao") console.log("Aviso: defina SESSION_SECRET em producao.");
-  if (!RESEND_API_KEY || !APP_URL) console.log("Aviso: confirmacao por e-mail desativada (defina RESEND_API_KEY e APP_URL).");
 });
