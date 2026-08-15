@@ -98,11 +98,13 @@ AREAS.forEach(a => (AREA_MAP[a.id] = a));
 /* ---------- Passport / GitHub OAuth (opcional) ---------- */
 const GH_CLIENT = process.env.GITHUB_CLIENT_ID;
 const GH_SECRET = process.env.GITHUB_CLIENT_SECRET;
-const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
+const BASE_URL = process.env.BASE_URL;
 if (GH_CLIENT && GH_SECRET) {
   passport.use(new GitHubStrategy({
     clientID: GH_CLIENT, clientSecret: GH_SECRET,
-    callbackURL: BASE_URL + "/auth/github/callback", scope: ["read:user"]
+    callbackURL: BASE_URL ? BASE_URL + "/auth/github/callback" : "/auth/github/callback",
+    userAgent: "study-roadmap",
+    scope: ["read:user"]
   }, (accessToken, refreshToken, profile, done) => {
     try {
       let row = db.prepare("SELECT * FROM users WHERE github_id = ?").get(profile.id);
@@ -129,6 +131,7 @@ passport.deserializeUser((id, done) => {
 
 /* ---------- App ---------- */
 const app = express();
+app.set("trust proxy", true);
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -158,6 +161,10 @@ app.get("/api/areas", (req, res) => res.json({ areas: AREAS, count: AREAS.length
 app.get("/api/me", (req, res) => {
   if (!req.user) return res.json({ user: null });
   res.json({ user: { username: req.user.username, github: !!req.user.github_id } });
+});
+
+app.get("/api/config", (req, res) => {
+  res.json({ githubEnabled: !!(GH_CLIENT && GH_SECRET) });
 });
 
 app.get("/api/progress", (req, res) => {

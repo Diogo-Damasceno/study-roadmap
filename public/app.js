@@ -281,6 +281,8 @@ function errMsg(r) {
 (async function init() {
   const data = await api("/api/areas");
   if (data) state.areas = data.areas;
+  const cfg = await api("/api/config");
+  if (cfg && !cfg.githubEnabled) { const b = $("#ghBtn"); if (b) b.style.display = "none"; }
   await refreshUser();
   if (state.user) showApp(); else showLogin();
 })();
