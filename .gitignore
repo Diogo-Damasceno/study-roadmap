@@ -4,6 +4,8 @@ roadmap.db
 roadmap.db-*
 estudos.db
 estudos.db-*
+sessions.db
+sessions.db-*
 .env
 _legacy/
 *.log

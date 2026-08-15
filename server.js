@@ -7,6 +7,7 @@ const crypto = require("crypto");
 const https = require("https");
 const express = require("express");
 const session = require("express-session");
+const SQLiteStore = require("connect-sqlite3")(session);
 const bcrypt = require("bcryptjs");
 const Database = require("better-sqlite3");
 const helmet = require("helmet");
@@ -198,7 +199,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(session({
   secret: SESSION_SECRET,
   resave: false, saveUninitialized: false,
-  cookie: { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production" }
+  store: new SQLiteStore({ db: "sessions.db", dir: DATA_DIR, tableName: "sessions" }),
+  cookie: { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", maxAge: 7 * 24 * 3600 * 1000 }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
