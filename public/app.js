@@ -37,10 +37,27 @@ function renderUserBox() {
   }
 }
 
+$("#tabLogin").onclick = showLogin;
+$("#tabReg").onclick = showReg;
+
 function showLogin() {
   $("#login").classList.remove("hidden");
   $("#dashboard").classList.add("hidden");
   $("#detail").classList.add("hidden");
+  $("#loginForm").classList.remove("hidden");
+  $("#regForm").classList.add("hidden");
+  $("#tabLogin").classList.add("active");
+  $("#tabReg").classList.remove("active");
+}
+
+function showReg() {
+  $("#login").classList.remove("hidden");
+  $("#dashboard").classList.add("hidden");
+  $("#detail").classList.add("hidden");
+  $("#regForm").classList.remove("hidden");
+  $("#loginForm").classList.add("hidden");
+  $("#tabReg").classList.add("active");
+  $("#tabLogin").classList.remove("active");
 }
 
 function showApp() {
