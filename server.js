@@ -72,7 +72,7 @@ function loadAreas() {
   } catch (e) { lessonsMod = null; }
   for (const a of areas) {
     for (const s of a.stages) {
-      if (expl && expl.explainStage) s.explain = expl.explainStage(s.start);
+      if (expl && expl.explainStage) s.explain = expl.explainStage(a.id, s.id, s.start);
       if (lessonsMod && lessonsMod.buildLesson) s.lesson = lessonsMod.buildLesson(a.id, s, lessonsOverrides[`${a.id}/${s.id}`]);
     }
   }
