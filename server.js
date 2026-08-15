@@ -31,7 +31,6 @@ db.exec(`
     created_at INTEGER NOT NULL,
     last_login INTEGER
   );
-  CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email ON users(email);
   CREATE TABLE IF NOT EXISTS progress (
     user_id INTEGER NOT NULL,
     area_id TEXT NOT NULL,
@@ -204,21 +203,19 @@ app.post("/api/star", (req, res) => {
   res.json({ ok: true });
 });
 
-/* ---------- Auth: senha (registro ativa conta direto; e-mail obrigatorio) ---------- */
+/* ---------- Auth: senha (registro ativa conta direto; e-mail opcional) ---------- */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 app.post("/api/register", authLimiter, async (req, res) => {
   const { username, password, email } = req.body || {};
   if (!username || !password) return res.status(400).json({ error: "campos" });
   if (username.length < 3 || username.length > 30) return res.status(400).json({ error: "usuario_3_30" });
   if (password.length < 8) return res.status(400).json({ error: "senha_min_8" });
-  if (!email || !EMAIL_RE.test(email)) return res.status(400).json({ error: "email_obrigatorio" });
+  if (email && !EMAIL_RE.test(email)) return res.status(400).json({ error: "email_invalido" });
   const exists = db.prepare("SELECT id FROM users WHERE username = ?").get(username);
   if (exists) return res.status(409).json({ error: "usuario_existe" });
-  const emailExists = db.prepare("SELECT id FROM users WHERE email = ?").get(email);
-  if (emailExists) return res.status(409).json({ error: "email_existe" });
   const hash = bcrypt.hashSync(password, 12);
   const info = db.prepare("INSERT INTO users (username, email, pass_hash, created_at, last_login) VALUES (?, ?, ?, ?, ?)")
-    .run(username, email, hash, Date.now(), Date.now());
+    .run(username, email || null, hash, Date.now(), Date.now());
   const user = db.prepare("SELECT id, username, email, github_id FROM users WHERE id = ?").get(info.lastInsertRowid);
   req.login(user, () => res.json({ ok: true }));
 });

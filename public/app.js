@@ -281,7 +281,7 @@ $("#loginForm").onsubmit = async (e) => {
 };
 $("#regForm").onsubmit = async (e) => {
   e.preventDefault();
-  const r = await api("/api/register", { method: "POST", body: JSON.stringify({ username: $("#rg_user").value, password: $("#rg_pass").value, email: $("#rg_email").value }) });
+  const r = await api("/api/register", { method: "POST", body: JSON.stringify({ username: $("#rg_user").value, password: $("#rg_pass").value }) });
   if (r && r.ok) { await refreshUser(); showApp(); } else setMsg("authMsg", errMsg(r), false);
 };
 $("#ghBtn").onclick = () => { window.location.href = "/auth/github"; };
@@ -291,7 +291,7 @@ $("#onlyStarred").onclick = () => { state.onlyStarred = !state.onlyStarred; rend
 
 function setMsg(id, txt, ok) { const el = $(id); el.textContent = txt; el.className = "msg " + (ok ? "ok" : "err"); }
 function errMsg(r) {
-  const m = { usuario_existe: "Usuário já existe.", email_existe: "Este e-mail já está cadastrado.", email_obrigatorio: "Informe um e-mail válido.", senha_min_8: "Senha precisa de 8+ caracteres.", usuario_3_30: "Usuário entre 3 e 30 caracteres.", campos: "Preencha todos os campos." };
+  const m = { usuario_existe: "Usuário já existe.", senha_min_8: "Senha precisa de 8+ caracteres.", usuario_3_30: "Usuário entre 3 e 30 caracteres.", campos: "Preencha todos os campos." };
   return (r && r.error && m[r.error]) || "Não foi possível concluir.";
 }
 
