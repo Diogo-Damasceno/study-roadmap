@@ -1,7 +1,7 @@
 /* Frontend da plataforma de roadmap de estudos.
    Consome a API do servidor; progresso e favoritos ficam por usuario. */
 const $ = (s) => document.querySelector(s);
-const state = { areas: [], progress: {}, stars: {}, user: null, onlyStarred: false, filter: "" };
+const state = { areas: [], progress: {}, stars: {}, user: null, onlyStarred: false, filter: "", justRegistered: false };
 
 async function api(path, opts) {
   const r = await fetch(path, Object.assign({ headers: { "Content-Type": "application/json" } }, opts));
@@ -29,6 +29,8 @@ function renderUserBox() {
     box.innerHTML = `<span style="color:var(--muted);margin-right:8px">Olá, ${escapeHtml(state.user.username)}</span>
       <button class="btn sm" id="logoutBtn">Sair</button>`;
     $("#logoutBtn").onclick = async () => { await api("/api/logout", { method: "POST" }); location.reload(); };
+  } else if (state.justRegistered) {
+    box.innerHTML = `<span style="color:var(--muted)">Cadastro recebido — ative pela confirmação no e-mail</span>`;
   } else {
     box.innerHTML = `<button class="btn sm primary" id="goLogin">Entrar / Criar conta</button>`;
     $("#goLogin").onclick = showLogin;
@@ -266,6 +268,8 @@ $("#regForm").onsubmit = async (e) => {
   e.preventDefault();
   const r = await api("/api/register", { method: "POST", body: JSON.stringify({ username: $("#rg_user").value, password: $("#rg_pass").value, email: $("#rg_email").value }) });
   if (r && r.ok) {
+    state.justRegistered = true;
+    renderUserBox();
     if (r.sent) setMsg("authMsg", "Conta criada! Enviamos um e-mail de confirmação. Abra o link para ativar.", true);
     else if (r.debugLink) setMsg("authMsg", "E-mail de confirmação desativado no servidor. Use este link para ativar (apenas dev): " + location.origin + r.debugLink, true);
     else setMsg("authMsg", "Cadastro recebido, mas não informou e-mail. Sem confirmação a conta não é ativada.", false);
@@ -292,7 +296,7 @@ function errMsg(r) {
   const token = params.get("token");
   if (token) {
     const cr = await api("/api/confirm?token=" + encodeURIComponent(token));
-    if (cr && cr.ok) { await refreshUser(); showApp(); }
+    if (cr && cr.ok) { state.justRegistered = false; history.replaceState(null, "", "/"); await refreshUser(); showApp(); }
     else { setMsg("authMsg", "Link de confirmação inválido ou expirado.", false); showLogin(); }
   } else {
     await refreshUser();
