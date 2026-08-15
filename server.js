@@ -239,7 +239,6 @@ app.post("/api/run", (req, res) => {
   const { code, lang } = req.body || {};
   if (!code || (lang !== "python" && lang !== "sh")) return res.status(400).json({ error: "lang" });
   const cmd = lang === "python" ? "python3" : "bash";
-  const tmp = path.join(DATA_DIR, "estudos.db"); // garante escrita em local permitido
   const file = path.join(require("os").tmpdir(), "roadmap_run_" + Date.now() + (lang === "python" ? ".py" : ".sh"));
   fs.writeFileSync(file, code);
   const child = execFile(cmd, lang === "python" ? [file] : [file], { timeout: 4000, maxBuffer: 200000 }, (err, stdout, stderr) => {

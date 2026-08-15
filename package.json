@@ -9,17 +9,17 @@
     "dev": "node server.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "express-session": "^1.18.0",
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^11.3.0",
-    "passport": "^0.7.0",
-    "passport-github2": "^0.1.12",
-    "helmet": "^7.1.0",
+    "better-sqlite3": "^12.11.1",
+    "csurf": "^1.11.0",
+    "express": "^4.19.2",
     "express-rate-limit": "^7.4.0",
-    "csurf": "^1.11.0"
+    "express-session": "^1.18.0",
+    "helmet": "^7.1.0",
+    "passport": "^0.7.0",
+    "passport-github2": "^0.1.12"
   }
 }
